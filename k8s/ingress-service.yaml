@@ -17,8 +17,3 @@ spec:
             backend:
               serviceName: server-cluster-ip-service
               servicePort: 5000
-          - path: /metrics/?(.*)
-            backend:
-              serviceName: prometheus-example-service
-              servicePort: 9090
-
