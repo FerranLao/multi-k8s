@@ -5,7 +5,8 @@
     "redis": "2.8.0",
     "cors": "2.8.4",
     "nodemon": "1.18.3",
-    "body-parser": "*"
+    "body-parser": "*",
+    "prom-client": "11.5.3"
   },
   "scripts": {
     "dev": "nodemon",

@@ -9,6 +9,14 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+const client = require('prom-client')
+client.collectDefaultMetrics({ timeout: 5000 })
+const counter = new client.Counter({
+  name: 'node_requests_operations_total',
+  help: 'total processed requests'
+})
+
+
 // Postgres Client Setup
 const { Pool } = require('pg');
 const pgClient = new Pool({
@@ -35,6 +43,7 @@ const redisClient = redis.createClient({
 const redisPublisher = redisClient.duplicate();
 
 // Express route handlers
+app.use(() => counter.inc())
 
 app.get('/', (req, res) => {
   res.send('Hi');
@@ -65,6 +74,11 @@ app.post('/values', async (req, res) => {
 
   res.send({ working: true });
 });
+
+app.get('/metrics', (req, res) => {
+  res.set('Content-Type', client.register.contentType);
+  res.end(client.register.metrics())
+})
 
 app.listen(5000, (err) => {
   console.log('Listening');
