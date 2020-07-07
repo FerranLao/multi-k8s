@@ -1,14 +1,14 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: prometheus-example-service
-
+  name: prometheus
 spec:
-  type: NodePort
   selector:
     app: prometheus
+  type: LoadBalancer
   ports:
   - name: promui
     protocol: TCP
     port: 9090
     targetPort: 9090
+    nodePort: 30909

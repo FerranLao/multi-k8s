@@ -4,9 +4,8 @@ metadata:
   name: prometheus-deployment
   labels:
     app: prometheus
-    purpose: example
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: prometheus
@@ -15,19 +14,19 @@ spec:
     metadata:
       labels:
         app: prometheus
-        purpose: example
     spec:
+      serviceAccountName: prometheus
       containers:
-      - name: prometheus-example
-        image: prom/prometheus
+      - name: prometheus
+        image: prom/prometheus:v2.1.0
         volumeMounts:
           - name: config-volume
-            mountPath: /etc/prometheus/prometheus.yml
+            mountPath: /etc/prometheus
             subPath: prometheus.yml
         ports:
         - containerPort: 9090
       volumes:
         - name: config-volume
           configMap:
-           name: prometheus-example-cm
+           name: prometheus-config
 
