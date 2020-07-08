@@ -1,5 +1,5 @@
 docker build -t ferranlao/multi-client:latest -t ferranlao/multi-client:$SHA -f ./client/Dockerfile ./client
-docker build -t ferranlao/multi-server:latest -t ferranlao/multi-server:$SHA -f ./server/Dockerfile ./server
+docker build -t ferranlao/multi-server:latest -t ferranlao/multi-server:$SHA -f ./server/Dockerfile ./nestserver
 docker build -t ferranlao/multi-worker:latest -t ferranlao/multi-worker:$SHA -f ./worker/Dockerfile ./worker
 
 docker push ferranlao/multi-client:latest
